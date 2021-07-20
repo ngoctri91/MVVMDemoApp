@@ -1,13 +1,18 @@
 package com.example.mvvmdemoapp.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.common.engine.common.lazyDeferred
+import com.example.repository.repositories.PlayListRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+class HomeViewModel(private val repository: PlayListRepository) : ViewModel(){
+    val playlistResultLiveData by lazyDeferred {
+        repository.getPlayList()
     }
-    val text: LiveData<String> = _text
+
+    fun prepareData() = viewModelScope.launch (Dispatchers.IO){
+        playlistResultLiveData.await()
+    }
 }
