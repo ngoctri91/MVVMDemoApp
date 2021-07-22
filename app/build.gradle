@@ -65,7 +65,12 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    //espresso contrib and web
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
+    androidTestImplementation('androidx.test.espresso:espresso-web:3.4.0')
+
     implementation project(':data:local')
+    androidTestImplementation project(':data:local')
     implementation project(':data:remote')
     implementation project(':data:repository')
     implementation project(':common')

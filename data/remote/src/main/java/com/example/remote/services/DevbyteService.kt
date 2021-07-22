@@ -6,6 +6,7 @@ import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -14,8 +15,11 @@ import java.util.concurrent.TimeUnit
 interface DevbyteService {
     @GET("devbytes")
     fun getPlaylistAsync(): Deferred<PlayListResponse>
+    @GET("devbytes")
+    fun getPlaylistAsyncTest(): Call<PlayListResponse>
 
     companion object {
+        val videoApi = invoke()
         operator fun invoke(): DevbyteService {
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
